@@ -23,6 +23,10 @@ namespace MarkdownPlayground
             this.DataContext = new MainWindowVM();
         }
 
+        private void OnLostForcus(object? sender, EventArgs e)
+        {
+            Console.WriteLine();
+        }
         private void OnWindowActivated(object? sender, EventArgs e)
         {
             MainWindowVM vm = (MainWindowVM)DataContext;

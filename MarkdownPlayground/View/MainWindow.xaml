@@ -10,6 +10,13 @@
         Title="MainWindow" Height="450" Width="800"
         Activated="OnWindowActivated"
         >
+
+    <Window.Resources>
+        <Style x:Key="FocusHandlingTextBoxStyle" TargetType="TextBox">
+            <EventSetter Event="LostFocus" Handler="OnLostForcus" />
+        </Style>
+    </Window.Resources>
+
     <ScrollViewer>
         <ItemsControl ItemsSource="{Binding Report[0].Sections}">
             <ItemsControl.Resources>
@@ -29,6 +36,7 @@
                                                         <TextBox 
                                                     Text="{Binding Content, Mode=TwoWay}"  
                                                     TextWrapping="Wrap" AcceptsReturn="True"
+                                                    Style="{StaticResource FocusHandlingTextBoxStyle}"
                                                  />
                                                     </DataTemplate>
                                                 </Setter.Value>
@@ -58,6 +66,7 @@
                                 </Style>
                             </ContentControl.Style>
                         </ContentControl>
+                        
                     </StackPanel>
                 </DataTemplate>
             </ItemsControl.Resources>

@@ -18,15 +18,12 @@ namespace MarkdownPlayground.ViewModel
         {
             DailyReportModel report = new();
             MarkdownFileService.ReadMdFile(report);
-            Console.WriteLine();
-
-            this.Report.Add(report);
-            Console.WriteLine();
+            Report = new ObservableCollection<DailyReportModel> { report };
         }
 
         public void ReadMdFile()
         {
-            MarkdownFileService.ReadMdFile(Report[0]);
+            Report[0] = MarkdownFileService.ReadMdFile(Report[0]);
             
         }
     }
