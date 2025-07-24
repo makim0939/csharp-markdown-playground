@@ -22,5 +22,11 @@ namespace MarkdownPlayground
             InitializeComponent();
             this.DataContext = new MainWindowVM();
         }
+
+        private void OnWindowActivated(object? sender, EventArgs e)
+        {
+            MainWindowVM vm = (MainWindowVM)DataContext;
+            vm.ReadMdFile();
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace MarkdownPlayground.Model
     {
 
         //mdファイルのセクションを解析し、DailyReportModel型に変換
-        public static DailyReportModel ParseReport(DailyReportModel Report)
+        public static DailyReportModel ReadMdFile(DailyReportModel Report)
         {
             // mdファイル読み込み
             string[] lines = File.ReadAllLines(@".\日報2025-07-24.md");
@@ -38,6 +38,23 @@ namespace MarkdownPlayground.Model
                         }
                     });
             }
+
+            // 入力種別毎に調整
+            Report.Sections.ForEach(
+                section =>
+                {
+                    switch (section.Type)
+                    {
+                        case "Text":
+                            section.Content = section.Content.Replace("\n", " ");
+                            break;
+                        case "Choice":
+                            section.Content = section.Content.Replace("\n", "");
+                            break;
+                        default:
+                            break;
+                    }
+                });
 
             return Report;
         }

@@ -4,10 +4,64 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MarkdownPlayground"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        xmlns:model="clr-namespace:MarkdownPlayground.Model"
 
-        <TextBox FontSize="16" Text="{Binding Report.Sections[0].Content}" />
-    </Grid>
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+        Activated="OnWindowActivated"
+        >
+    <ScrollViewer>
+        <ItemsControl ItemsSource="{Binding Report[0].Sections}">
+            <ItemsControl.Resources>
+                <!-- Text用テンプレート -->
+                <DataTemplate DataType="{x:Type model:Section}">
+                    <StackPanel Margin="8">
+                        <TextBlock Text="{Binding Title}" FontWeight="Bold"/>
+
+                        <ContentControl>
+                            <ContentControl.Style>
+                                <Style TargetType="ContentControl">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Type}" Value="Note">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBox 
+                                                    Text="{Binding Content, Mode=TwoWay}"  
+                                                    TextWrapping="Wrap" AcceptsReturn="True"
+                                                 />
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Type}" Value="Text">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding Content, Mode=TwoWay}" />
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding Type}" Value="Choice">
+                                            <Setter Property="ContentTemplate">
+                                                <Setter.Value>
+                                                    <DataTemplate>
+                                                        <ComboBox 
+                                                ItemsSource="{Binding Choices}" 
+                                                SelectedItem="{Binding Content, Mode=TwoWay}" />
+                                                    </DataTemplate>
+                                                </Setter.Value>
+                                            </Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentControl.Style>
+                        </ContentControl>
+                    </StackPanel>
+                </DataTemplate>
+            </ItemsControl.Resources>
+        </ItemsControl>
+    </ScrollViewer>
+    
 </Window>

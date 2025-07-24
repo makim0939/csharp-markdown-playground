@@ -12,7 +12,7 @@ namespace MarkdownPlayground.Model
         public string InternalName { get; set; } = "";
         public string Content { get; set; } = "";
         public string Type { get; set; } = "";
-        public string[] choices { get; set; } = []; 
+        public string[] Choices { get; set; } = []; 
 
         public  Section(string title, string InternalName, string content, string type, string[] choices) 
         {
@@ -20,7 +20,7 @@ namespace MarkdownPlayground.Model
             this.InternalName = InternalName;
             this.Content = content;
             this.Type = type;
-            this.choices = choices;
+            this.Choices = choices;
         }
     }
 
